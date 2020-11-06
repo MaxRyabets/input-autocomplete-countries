@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {Component} from '@angular/core';
+import {FormBuilder} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {Country} from '../country.interface';
 
@@ -8,14 +8,14 @@ import {Country} from '../country.interface';
   templateUrl: './country-search.component.html',
   styleUrls: ['./country-search.component.scss']
 })
-export class CountrySearchComponent implements OnInit {
-  form: FormGroup;
+export class CountrySearchComponent {
+
+  form = this.formBuilder.group({
+    country: ['', []],
+  });
 
   terms$: Observable<Country[]>;
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+  constructor(private formBuilder: FormBuilder) { }
 
 }
