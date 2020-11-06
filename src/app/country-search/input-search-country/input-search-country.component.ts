@@ -1,5 +1,5 @@
-import {Component, ElementRef, forwardRef, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
-import {NG_VALUE_ACCESSOR} from '@angular/forms';
+import {Component, ElementRef, forwardRef, ViewChild} from '@angular/core';
+import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 @Component({
   selector: 'app-input-search-country',
@@ -14,7 +14,7 @@ import {NG_VALUE_ACCESSOR} from '@angular/forms';
   ],
 })
 
-export class InputSearchCountryComponent {
+export class InputSearchCountryComponent implements ControlValueAccessor{
   @ViewChild('inputCountry') inputTerm: ElementRef;
 
   val = 0;
