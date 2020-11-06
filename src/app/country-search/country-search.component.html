@@ -6,6 +6,23 @@
           formControlName="country"
         ></app-input-country-search>
       </div>
+      <ul [ngClass]="{countrySearch: isDisplayCountrySearch,
+      invisibleCountrySearch: !isDisplayCountrySearch}">
+        <li class="country-title">
+          <span>Founded country: {{messageFoundedCountry}}</span>
+          <button class="country-search-close" (click)="closeSearchResult()">&times;</button>
+        </li>
+        <li
+          *ngFor="let country of countries;
+            let idx = index;
+            trackBy: trackByFn"
+          (click)="onClickCountry(country.name)"
+          class="countries"
+        >
+          <span class="country-name">{{country.name}}</span>
+        </li>
+      </ul>
+
     </form>
   </section>
 </main>
