@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { InputCountrySearchComponent } from './country-search/input-search-country/input-country-search.component';
 import { CountrySearchComponent } from './country-search/country-search.component';
 import {CoreModule} from './core/core.module';
@@ -13,11 +13,12 @@ import {CoreModule} from './core/core.module';
     InputCountrySearchComponent,
     CountrySearchComponent
   ],
-    imports: [
-        BrowserModule,
-        ReactiveFormsModule,
-        CoreModule
-    ],
+  imports: [
+    BrowserModule,
+    ReactiveFormsModule,
+    CoreModule,
+    FormsModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

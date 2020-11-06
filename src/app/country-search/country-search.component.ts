@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {Country} from './country.interface';
@@ -10,10 +10,10 @@ import {tap} from 'rxjs/operators';
   templateUrl: './country-search.component.html',
   styleUrls: ['./country-search.component.scss']
 })
-export class CountrySearchComponent implements OnInit {
+export class CountrySearchComponent implements OnInit, AfterViewInit {
 
   form = this.formBuilder.group({
-    country: ['', []],
+    country: [''],
   });
 
   terms$: Observable<Country[]>;
@@ -24,12 +24,22 @@ export class CountrySearchComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.countryApiService.getCountries('g').pipe(
+    /*this.countryApiService.getCountries('g').pipe(
       tap(countries => {
         console.log(countries);
       })
     )
-      .subscribe();
+      .subscribe();*/
+
+    this.form.get('country')
+      .valueChanges
+      .subscribe(country => {
+        console.log('test', country);
+      });
+  }
+
+  ngAfterViewInit(): void {
+   /* this.form.get('country').valueChanges.subscribe(country => console.log(country));*/
   }
 
 }

@@ -1,5 +1,5 @@
-import {Component, forwardRef} from '@angular/core';
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
+import {Component, forwardRef, OnDestroy} from '@angular/core';
+import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 @Component({
   selector: 'app-input-country-search',
@@ -14,15 +14,17 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
   ],
 })
 
-export class InputCountrySearchComponent implements ControlValueAccessor {
-  val = 0;
-  disabled = false;
+export class InputCountrySearchComponent implements ControlValueAccessor, OnDestroy {
+  subscriptions = [];
+  val = new FormControl('');
+  disabled: boolean;
 
-  onChange: any = () => {};
   onTouch: any = () => {};
 
   registerOnChange(fn: any): void {
-    this.onChange = fn;
+    this.subscriptions.push(
+      this.val.valueChanges.subscribe(fn)
+    );
   }
 
   registerOnTouched(fn: () => {}): void {
@@ -34,20 +36,10 @@ export class InputCountrySearchComponent implements ControlValueAccessor {
   }
 
   writeValue(val: any): void {
-    if (!this.isValue(val)) {
-      return;
-    }
-
-    this.changeTextContent(val);
+    this.val.setValue(val);
   }
 
-  private isValue(val: any): boolean {
-    return val !== undefined && this.val !== val;
-  }
-
-  private changeTextContent(val: any): void {
-    this.val = val;
-    this.onChange(val);
-    this.onTouch(val);
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 }

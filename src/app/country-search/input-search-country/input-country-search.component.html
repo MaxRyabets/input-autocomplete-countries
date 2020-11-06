@@ -4,4 +4,6 @@
   class="form-control"
   placeholder="Search country"
   autocomplete="off"
+  [formControl]="val"
+  (blur)="onTouch()"
 />
