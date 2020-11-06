@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, ElementRef, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {Observable} from 'rxjs';
+import {Cities} from './cities.interface';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'input-autocomplete-countries';
+  @ViewChildren('list') list: QueryList<ElementRef>;
+  @ViewChild('inputCity') inputTerm: ElementRef;
+
+
+  terms$: Observable<Cities[]>;
 }
