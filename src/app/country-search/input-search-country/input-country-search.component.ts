@@ -2,19 +2,19 @@ import {Component, forwardRef} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 @Component({
-  selector: 'app-input-search-country',
-  templateUrl: './input-search-country.component.html',
-  styleUrls: ['./input-search-country.component.scss'],
+  selector: 'app-input-country-search',
+  templateUrl: './input-country-search.component.html',
+  styleUrls: ['./input-country-search.component.scss'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => InputSearchCountryComponent),
+      useExisting: forwardRef(() => InputCountrySearchComponent),
       multi: true,
     },
   ],
 })
 
-export class InputSearchCountryComponent implements ControlValueAccessor {
+export class InputCountrySearchComponent implements ControlValueAccessor {
   val = 0;
   disabled = false;
 
