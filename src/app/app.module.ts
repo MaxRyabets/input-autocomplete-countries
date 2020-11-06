@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import { InputCountrySearchComponent } from './country-search/input-search-country/input-country-search.component';
 import { CountrySearchComponent } from './country-search/country-search.component';
+import {CoreModule} from './core/core.module';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { CountrySearchComponent } from './country-search/country-search.componen
   ],
     imports: [
         BrowserModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        CoreModule
     ],
   providers: [],
   bootstrap: [AppComponent]
