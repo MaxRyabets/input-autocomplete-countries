@@ -10,7 +10,7 @@ import {FormGroup} from '@angular/forms';
 })
 export class AppComponent {
   @ViewChildren('list') list: QueryList<ElementRef>;
-  @ViewChild('inputCity') inputTerm: ElementRef;
+  @ViewChild('inputCountry') inputTerm: ElementRef;
   form: FormGroup;
 
 
