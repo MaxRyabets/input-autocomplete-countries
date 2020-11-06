@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
 import {Observable} from 'rxjs';
-import {Country} from '../country.interface';
+import {Country} from './country.interface';
 
 @Component({
   selector: 'app-country-search',
