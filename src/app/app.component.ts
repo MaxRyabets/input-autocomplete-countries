@@ -1,6 +1,7 @@
 import {Component, ElementRef, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {Observable} from 'rxjs';
-import {Cities} from './cities.interface';
+import {Country} from './country.interface';
+import {FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,8 @@ import {Cities} from './cities.interface';
 export class AppComponent {
   @ViewChildren('list') list: QueryList<ElementRef>;
   @ViewChild('inputCity') inputTerm: ElementRef;
+  form: FormGroup;
 
 
-  terms$: Observable<Cities[]>;
+  terms$: Observable<Country[]>;
 }
