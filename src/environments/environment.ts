@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  urlCountry: 'https://restcountries.eu/rest/v2/capital',
+  urlCountry: 'https://restcountries.eu/rest/v2/name',
 };
 
 /*
