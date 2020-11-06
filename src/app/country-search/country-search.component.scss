@@ -1,0 +1,91 @@
+.form-groups {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 100px;
+
+  .form-group {
+    width: 350px;
+
+    .form-control{
+      width: 100%;
+      height: 40px;
+      padding-left: 20px;
+      background: none;
+      box-shadow: 0 25px 20px -15px rgba(47, 106, 224, 0.2);
+      outline: none;
+      font-size: 18px;
+      border: 1px solid #ebf1fc;
+    }
+  }
+
+  .searchResult {
+    display: flex;
+    flex-direction: column;
+    margin-top: 40px;
+    padding: inherit;
+    width: 295px;
+    background-color: white;
+
+    .term-title {
+      display: flex;
+      justify-content: space-between;
+      font-weight: bold;
+
+      .search-result-close {
+        background: none;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+      }
+    }
+
+    .term-title, .terms{
+      margin: 10px 20px 10px 20px;
+      list-style-type: none;
+    }
+
+    .terms {
+      padding: 5px;
+      cursor: pointer;
+      border: 1px solid white;
+
+      .term-text {
+        display: block;
+        width: 100%;
+        color: #888;
+        text-decoration: none;
+      }
+    }
+  }
+  .form-group input {
+    &.ng-invalid.ng-touched{
+      color: #ff7b72;
+      box-shadow: 0 30px 10px -15px #ff7b72;
+    }
+
+    &.ng-valid {
+      box-shadow: 0 30px 10px -15px #8bc34a;
+    }
+  }
+}
+
+.selected {
+  border: 1px solid #c8c8c8;
+  box-shadow: 1px 1px 4px 1px #c8c8c8;
+}
+
+.alert {
+  text-align: center;
+  margin-top: 30px;
+  padding-left: 20px;
+}
+
+.alert-danger {
+  font-size: 18px;
+  color: red;
+}
+
+.invisibleSearchResult {
+  display: none;
+}
