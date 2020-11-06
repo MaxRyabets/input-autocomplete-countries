@@ -1,4 +1,4 @@
-import {Component, ElementRef, forwardRef, ViewChild} from '@angular/core';
+import {Component, forwardRef} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 @Component({
@@ -14,9 +14,7 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
   ],
 })
 
-export class InputSearchCountryComponent implements ControlValueAccessor{
-  @ViewChild('inputCountry') inputTerm: ElementRef;
-
+export class InputSearchCountryComponent implements ControlValueAccessor {
   val = 0;
   disabled = false;
 
