@@ -6,12 +6,14 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { InputCountrySearchComponent } from './country-search/input-search-country/input-country-search.component';
 import { CountrySearchComponent } from './country-search/country-search.component';
 import {CoreModule} from './core/core.module';
+import { HighlightedCountryDirective } from './country-search/highlighted-country.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     InputCountrySearchComponent,
-    CountrySearchComponent
+    CountrySearchComponent,
+    HighlightedCountryDirective
   ],
   imports: [
     BrowserModule,

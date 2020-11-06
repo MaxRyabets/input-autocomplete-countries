@@ -41,8 +41,12 @@
       .country-name {
         display: block;
         width: 100%;
-        color: #888;
+        /*color: #888;*/
         text-decoration: none;
+
+        .special {
+          color: yellow;
+        }
       }
     }
   }

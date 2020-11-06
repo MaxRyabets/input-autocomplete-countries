@@ -18,7 +18,11 @@
           (click)="onClickCountry(country.name)"
           class="countries"
         >
-          <span class="country-name">{{country.name}}</span>
+          <span
+            [appHighlightedCountry]="form.get('country').value"
+            [country]="country.name"
+            class="country-name"
+          >{{country.name}}</span>
         </li>
       </ul>
 
