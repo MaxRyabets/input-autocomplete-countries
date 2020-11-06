@@ -1,22 +1,23 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {Country} from './country.interface';
 import {CountriesApiService} from './countries-api.service';
-import {tap} from 'rxjs/operators';
+import {concatMap, delay, tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-country-search',
   templateUrl: './country-search.component.html',
   styleUrls: ['./country-search.component.scss']
 })
-export class CountrySearchComponent implements OnInit, AfterViewInit {
+export class CountrySearchComponent implements OnInit {
+  private country = '';
 
   form = this.formBuilder.group({
     country: [''],
   });
 
-  terms$: Observable<Country[]>;
+  countries: Country[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -24,22 +25,28 @@ export class CountrySearchComponent implements OnInit, AfterViewInit {
     ) { }
 
   ngOnInit(): void {
-    /*this.countryApiService.getCountries('g').pipe(
-      tap(countries => {
-        console.log(countries);
-      })
-    )
-      .subscribe();*/
+    this.getValueChangesFromCountry();
+  }
 
+  private getValueChangesFromCountry(): void {
     this.form.get('country')
       .valueChanges
-      .subscribe(country => {
-        console.log('test', country);
-      });
+      .pipe(
+        concatMap(country => {
+          return of(country)
+            .pipe(
+              delay(100),
+              concatMap(_ => {
+                return this.getCounty(country).pipe(
+                  tap(countries => this.countries = countries),
+                );
+              })
+            );
+        })
+      ).subscribe();
   }
 
-  ngAfterViewInit(): void {
-   /* this.form.get('country').valueChanges.subscribe(country => console.log(country));*/
+  private getCounty(country: string): Observable<Country[]> {
+    return this.countryApiService.getCountry(country);
   }
-
 }
