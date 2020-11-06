@@ -1,16 +1,55 @@
-import {Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {Component, ElementRef, forwardRef, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {NG_VALUE_ACCESSOR} from '@angular/forms';
 
 @Component({
   selector: 'app-input-search-country',
   templateUrl: './input-search-country.component.html',
-  styleUrls: ['./input-search-country.component.scss']
+  styleUrls: ['./input-search-country.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => InputSearchCountryComponent),
+      multi: true,
+    },
+  ],
 })
-export class InputSearchCountryComponent implements OnInit {
-  @ViewChildren('list') list: QueryList<ElementRef>;
+
+export class InputSearchCountryComponent {
   @ViewChild('inputCountry') inputTerm: ElementRef;
 
-  constructor() { }
+  val = 0;
+  disabled = false;
 
-  ngOnInit(): void {
+  onChange: any = () => {};
+  onTouch: any = () => {};
+
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: () => {}): void {
+    this.onTouch = fn;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+  }
+
+  writeValue(val: any): void {
+    if (!this.isValue(val)) {
+      return;
+    }
+
+    this.changeTextContent(val);
+  }
+
+  private isValue(val: any): boolean {
+    return val !== undefined && this.val !== val;
+  }
+
+  private changeTextContent(val: any): void {
+    this.val = val;
+    this.onChange(val);
+    this.onTouch(val);
   }
 }
