@@ -7,8 +7,8 @@
         ></app-input-country-search>
       </div>
       <ul class="countrySearch">
-        <li class="country-error" *ngIf="error.length">
-          <span>{{error}}</span>
+        <li class="country-error" *ngIf="messageNotFoundCountry.length">
+          <span>{{messageNotFoundCountry}}</span>
         </li>
         <li
           *ngFor="let country of countries; trackBy: trackByFn"

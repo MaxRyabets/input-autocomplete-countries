@@ -22,20 +22,7 @@ export class CountriesApiService {
           return name.toLocaleLowerCase().startsWith(country.toLocaleLowerCase());
         })),
       debounceTime(200),
-      catchError(this.handleError<Country[]>('getCountries', []))
-    );
-  }
 
-  /**
-   * Handle Http operation that failed.
-   * Let the app continue.
-   * @param operation - name of the operation that failed
-   * @param result - optional value to return as the observable result
-   */
-  private handleError<T>(operation = 'operation', result?: T): (error: any) => Observable<T> {
-    return (error: any): Observable<T> => {
-      console.error(error.message);
-      return of(result as T);
-    };
+    );
   }
 }

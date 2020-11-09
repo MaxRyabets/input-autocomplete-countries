@@ -17,7 +17,7 @@ export class CountrySearchComponent implements OnInit {
   });
 
   inputCountry = '';
-  error = '';
+  messageNotFoundCountry = '';
 
   countries: Country[] = [];
   isClickCountry = false;
@@ -55,9 +55,15 @@ export class CountrySearchComponent implements OnInit {
         debounceTime(300),
         distinctUntilChanged(),
         filter(country => country.length),
-        switchMap(country => this.getCounty(country)),
+        switchMap(country => this.getCounty(country).pipe(
+          catchError(err => {
+            this.messageNotFoundCountry = 'Country not found';
+
+            return of([]);
+          })
+        )),
         tap(countries => {
-          this.error = countries.length ? '' : 'Country not found';
+          this.messageNotFoundCountry = '';
           this.countries = countries;
           this.inputCountry = this.form.get('country').value;
         }),
