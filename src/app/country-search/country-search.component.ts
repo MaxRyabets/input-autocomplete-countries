@@ -55,14 +55,10 @@ export class CountrySearchComponent implements OnInit {
         distinctUntilChanged(),
         filter(country => country.length),
         switchMap(country => this.getCounty(country).pipe(
-          catchError(err => {
-            this.messageNotFoundCountry = 'Country not found';
-
-            return of([]);
-          })
+          catchError(err => of([]))
         )),
         tap(countries => {
-          this.messageNotFoundCountry = '';
+          this.messageNotFoundCountry = countries.length ? '' : 'Country not found';
           this.countries = countries;
           this.inputCountry = this.form.get('country').value;
         }),

@@ -20,7 +20,7 @@ export class HighlightedCountryDirective implements  OnChanges {
 
     const cutInputCountry = this.country.substr(this.inputCountry.length, this.country.length);
 
-    this.el.nativeElement.innerHTML = `<b style="color: #8bc34a">${country}</b>${cutInputCountry}`;
+    this.el.nativeElement.innerHTML = `<b class="country-color">${country}</b>${cutInputCountry}`;
   }
 
   private upperCaseFirstLetterCountry(country: string): string {

@@ -37,6 +37,10 @@
         display: block;
         width: 100%;
         text-decoration: none;
+
+        ::ng-deep .country-color{
+          color: #8bc34a;
+        }
       }
     }
   }
