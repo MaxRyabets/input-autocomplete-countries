@@ -11,48 +11,24 @@
   .countrySearch {
     display: flex;
     flex-direction: column;
-    margin-top: 40px;
+    margin-top: 60px;
     padding: inherit;
     width: 295px;
-
-    .country-title {
-      display: flex;
-      justify-content: space-between;
-      font-weight: bold;
-
-      .country-search-close {
-        background: none;
-        border: none;
-        font-size: 20px;
-        cursor: pointer;
-      }
-    }
-
-    .country-search-title, .countries{
-      margin: 10px 20px 10px 20px;
-      list-style-type: none;
-    }
+    position: absolute;
+    z-index: 1;
 
     .countries {
       padding: 5px;
       cursor: pointer;
       border: 1px solid white;
+      margin: 10px 20px 10px 20px;
+      list-style-type: none;
 
       .country-name {
         display: block;
         width: 100%;
         text-decoration: none;
       }
-    }
-  }
-  .form-group input {
-    &.ng-invalid.ng-touched{
-      color: #ff7b72;
-      box-shadow: 0 30px 10px -15px #ff7b72;
-    }
-
-    &.ng-valid {
-      box-shadow: 0 30px 10px -15px #8bc34a;
     }
   }
 }
