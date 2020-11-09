@@ -41,12 +41,7 @@
       .country-name {
         display: block;
         width: 100%;
-        /*color: #888;*/
         text-decoration: none;
-
-        .special {
-          color: yellow;
-        }
       }
     }
   }
@@ -65,19 +60,4 @@
 .selected {
   border: 1px solid #c8c8c8;
   box-shadow: 1px 1px 4px 1px #c8c8c8;
-}
-
-.alert {
-  text-align: center;
-  margin-top: 30px;
-  padding-left: 20px;
-}
-
-.alert-danger {
-  font-size: 18px;
-  color: red;
-}
-
-.invisibleCountrySearch {
-  display: none;
 }

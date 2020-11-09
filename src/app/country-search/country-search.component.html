@@ -6,20 +6,15 @@
           formControlName="country"
         ></app-input-country-search>
       </div>
-      <ul [ngClass]="{countrySearch: isDisplayCountrySearch,
-      invisibleCountrySearch: !isDisplayCountrySearch}">
-        <li class="country-title">
-          <span>Founded country: {{messageFoundedCountry}}</span>
-          <button class="country-search-close" (click)="closeSearchResult()">&times;</button>
-        </li>
+      <ul class="countrySearch">
         <li
-          *ngFor="let country of countries;
-            trackBy: trackByFn"
+          *ngFor="let country of countries; trackBy: trackByFn"
           (click)="onClickCountry(country.name)"
           class="countries"
         >
           <span
-            [appHighlightedCountry]="form.get('country').value"
+            appHighlightedCountry
+            [inputCountry]="inputCountry"
             [country]="country.name"
             class="country-name"
           >{{country.name}}</span>

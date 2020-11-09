@@ -1,26 +1,31 @@
-import {AfterViewInit, Directive, ElementRef, HostBinding, Input, Renderer2} from '@angular/core';
+import {Directive, ElementRef, HostListener, Input, OnChanges} from '@angular/core';
 
 @Directive({
-  selector: '[appHighlightedCountry]'
+  selector: '[appHighlightedCountry]',
 })
-export class HighlightedCountryDirective implements AfterViewInit{
+export class HighlightedCountryDirective implements  OnChanges {
+  @Input() inputCountry: string;
   @Input() country: string;
-  @Input('appHighlightedCountry') inputCountry: string;
-
-  @HostBinding('style.color') elColor = null;
 
   constructor(
-    private el: ElementRef,
-    private renderer: Renderer2
+    private el: ElementRef
   ) { }
 
-  ngAfterViewInit(): void {
+  ngOnChanges(): void {
+    if (!this.country.length || !this.inputCountry.length) {
+      return;
+    }
 
-    const cutInputCountry =  this.country.substr(this.inputCountry.length, this.country.length);
+    const country = this.upperCaseFirstLetterCountry(this.inputCountry);
 
-    this.el.nativeElement.innerHTML = this.el.nativeElement.
-    innerHTML.replace(new RegExp(`${this.country}`, 'g'),
-      `<b class="special">${this.inputCountry}</b>${cutInputCountry}`);
+    const cutInputCountry = this.country.substr(this.inputCountry.length, this.country.length);
+
+    this.el.nativeElement.innerHTML = `<b style="color: #8bc34a">${country}</b>${cutInputCountry}`;
   }
 
+  private upperCaseFirstLetterCountry(country: string): string {
+    return country[0].toUpperCase() + country.slice(1);
+  }
 }
+
+
