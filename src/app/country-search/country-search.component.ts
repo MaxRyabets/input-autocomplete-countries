@@ -1,15 +1,15 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
-import {Observable, Subject} from 'rxjs';
+import {Observable, of, throwError} from 'rxjs';
 import {Country} from './country.interface';
 import {CountriesApiService} from './countries-api.service';
-import {debounceTime, distinctUntilChanged, filter, map, skipWhile, switchMap, tap} from 'rxjs/operators';
+import {catchError, debounceTime, distinctUntilChanged, filter, map, switchMap, tap} from 'rxjs/operators';
+import {log} from 'util';
 
 @Component({
   selector: 'app-country-search',
   templateUrl: './country-search.component.html',
-  styleUrls: ['./country-search.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./country-search.component.scss']
 })
 export class CountrySearchComponent implements OnInit {
   form = this.formBuilder.group({
@@ -17,15 +17,14 @@ export class CountrySearchComponent implements OnInit {
   });
 
   inputCountry = '';
-  messageFoundedCountry = '';
+  error = '';
 
   countries: Country[] = [];
   isClickCountry = false;
 
   constructor(
     private formBuilder: FormBuilder,
-    private countryApiService: CountriesApiService,
-    private cdRef: ChangeDetectorRef
+    private countryApiService: CountriesApiService
   ) { }
 
   ngOnInit(): void {
@@ -49,17 +48,18 @@ export class CountrySearchComponent implements OnInit {
         tap(country => {
           if (!country.length) {
             this.countries = [];
+
+            return;
           }
         }),
-        filter(country => country.length),
         debounceTime(300),
         distinctUntilChanged(),
+        filter(country => country.length),
         switchMap(country => this.getCounty(country)),
         tap(countries => {
+          this.error = countries.length ? '' : 'Country not found';
           this.countries = countries;
           this.inputCountry = this.form.get('country').value;
-          this.messageFoundedCountry = countries.length ? '' : 'not found';
-          this.cdRef.detectChanges();
         }),
       ).subscribe();
   }

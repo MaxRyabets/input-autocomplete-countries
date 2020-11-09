@@ -17,12 +17,21 @@
     position: absolute;
     z-index: 1;
 
+    .country-error {
+      display: flex;
+      justify-content: space-between;
+      font-weight: bold;
+    }
+
+    .country-error, .countries {
+      margin: 10px 20px 10px 20px;
+      list-style-type: none;
+    }
+
     .countries {
       padding: 5px;
       cursor: pointer;
       border: 1px solid white;
-      margin: 10px 20px 10px 20px;
-      list-style-type: none;
 
       .country-name {
         display: block;

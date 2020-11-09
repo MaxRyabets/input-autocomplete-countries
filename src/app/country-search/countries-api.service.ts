@@ -34,11 +34,7 @@ export class CountriesApiService {
    */
   private handleError<T>(operation = 'operation', result?: T): (error: any) => Observable<T> {
     return (error: any): Observable<T> => {
-
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-
-      // Let the app keep running by returning an empty result.
+      console.error(error.message);
       return of(result as T);
     };
   }
