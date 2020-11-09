@@ -20,7 +20,6 @@ export class CountrySearchComponent implements OnInit {
   messageNotFoundCountry = '';
 
   countries: Country[] = [];
-  isClickCountry = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -37,7 +36,6 @@ export class CountrySearchComponent implements OnInit {
   }
 
   onClickCountry(country: string): void {
-    this.isClickCountry = true;
     this.form.controls.country.setValue(country);
   }
 
