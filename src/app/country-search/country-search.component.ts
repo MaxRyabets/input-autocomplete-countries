@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
 import {Observable, of} from 'rxjs';
 import {Country} from './country.interface';
@@ -8,7 +8,8 @@ import {catchError, debounceTime, distinctUntilChanged, filter, map, switchMap, 
 @Component({
   selector: 'app-country-search',
   templateUrl: './country-search.component.html',
-  styleUrls: ['./country-search.component.scss']
+  styleUrls: ['./country-search.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CountrySearchComponent implements OnInit {
   form = this.formBuilder.group({
@@ -23,7 +24,8 @@ export class CountrySearchComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private countryApiService: CountriesApiService
+    private countryApiService: CountriesApiService,
+    private cdRef: ChangeDetectorRef,
   ) { }
 
   ngOnInit(): void {
@@ -61,6 +63,7 @@ export class CountrySearchComponent implements OnInit {
           this.messageNotFoundCountry = countries.length ? '' : 'Country not found';
           this.countries = countries;
           this.inputCountry = this.form.get('country').value;
+          this.cdRef.detectChanges();
         }),
       ).subscribe();
   }
