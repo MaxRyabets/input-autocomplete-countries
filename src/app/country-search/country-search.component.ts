@@ -1,9 +1,9 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
-import {Observable, of} from 'rxjs';
+import {Observable, of, Subject} from 'rxjs';
 import {Country} from './country.interface';
 import {CountriesApiService} from './countries-api.service';
-import {catchError, debounceTime, distinctUntilChanged, filter, map, switchMap, tap} from 'rxjs/operators';
+import {catchError, debounceTime, distinctUntilChanged, filter, map, switchMap, takeUntil, tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-country-search',
@@ -11,10 +11,12 @@ import {catchError, debounceTime, distinctUntilChanged, filter, map, switchMap, 
   styleUrls: ['./country-search.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CountrySearchComponent implements OnInit {
+export class CountrySearchComponent implements OnInit, OnDestroy {
   form = this.formBuilder.group({
     country: [''],
   });
+
+  destroy$ = new Subject();
 
   inputCountry = '';
   messageNotFoundCountry = '';
@@ -39,10 +41,16 @@ export class CountrySearchComponent implements OnInit {
     this.form.controls.country.setValue(country);
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
   private getValueChangesFromCountry(): void {
     this.form.get('country')
       .valueChanges
       .pipe(
+        takeUntil(this.destroy$),
         map(country => country.trim()),
         tap(country => {
           if (!country.length) {
